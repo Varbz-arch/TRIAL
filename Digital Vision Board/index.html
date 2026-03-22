@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vision Board 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #F5F0E8;
+    --sand: #E8DFD0;
+    --taupe: #C4B5A0;
+    --stone: #9E8E7E;
+    --bark: #6B5B4E;
+    --ink: #2C2420;
+    --blush: #E8D5C8;
+    --sage: #C8D4C0;
+    --dusty-blue: #C4CDD8;
+    --gold: #C9A96E;
+    --gold-light: #E8D5A8;
+    --shadow: rgba(44, 36, 32, 0.08);
+    --shadow-md: rgba(44, 36, 32, 0.14);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at 20% 10%, rgba(201, 169, 110, 0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(200, 212, 192, 0.1) 0%, transparent 50%);
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 40px 48px 24px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .header-left h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .header-left h1 span {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .header-left p {
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: var(--stone);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.02em;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .btn-primary:hover {
+    background: var(--bark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px var(--shadow-md);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--stone);
+    border: 1.5px solid var(--sand);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--taupe);
+    color: var(--ink);
+    background: var(--warm-white);
+  }
+
+  /* ── CATEGORY FILTER ── */
+  .filters {
+    padding: 20px 48px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .filter-tag {
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--sand);
+    background: transparent;
+    color: var(--stone);
+    transition: all 0.18s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .filter-tag:hover,
+  .filter-tag.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--cream);
+  }
+
+  /* ── GRID ── */
+  .board {
+    padding: 16px 48px 60px;
+    columns: 3;
+    column-gap: 20px;
+  }
+
+  @media (max-width: 1100px) { .board { columns: 2; } }
+  @media (max-width: 680px)  { .board { columns: 1; padding: 16px 20px 60px; } header, .filters { padding-left: 20px; padding-right: 20px; } }
+
+  /* ── CARD ── */
+  .card {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: var(--warm-white);
+    box-shadow: 0 2px 12px var(--shadow);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+    animation: cardIn 0.4s ease both;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px var(--shadow-md);
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-image-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-image-wrap img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .card:hover .card-image-wrap img {
+    transform: scale(1.04);
+  }
+
+  .card-category-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+  }
+
+  .cat-health    { background: rgba(200,212,192,0.85); color: #3a5c38; }
+  .cat-career    { background: rgba(196,205,216,0.85); color: #2a3d5c; }
+  .cat-travel    { background: rgba(201,169,110,0.25); color: #6b4c1c; }
+  .cat-personal  { background: rgba(232,213,200,0.85); color: #6b3e2e; }
+  .cat-finance   { background: rgba(220,220,200,0.85); color: #4c4c28; }
+  .cat-creative  { background: rgba(218,200,220,0.85); color: #4c2e5c; }
+
+  .card-body {
+    padding: 18px 20px 20px;
+  }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .card-goal {
+    font-size: 0.82rem;
+    color: var(--stone);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .card-footer {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .card-date {
+    font-size: 0.7rem;
+    color: var(--taupe);
+    letter-spacing: 0.06em;
+  }
+
+  .card-actions {
+    display: flex;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .card:hover .card-actions {
+    opacity: 1;
+  }
+
+  .icon-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: var(--sand);
+    color: var(--stone);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    font-size: 0.75rem;
+  }
+
+  .icon-btn:hover { background: var(--taupe); color: var(--cream); }
+  .icon-btn.del:hover { background: #d4756a; color: #fff; }
+
+  /* no-image card variant */
+  .card.text-only {
+    background: linear-gradient(135deg, var(--warm-white), var(--sand));
+  }
+
+  .card.text-only .card-body {
+    padding: 24px 22px 22px;
+  }
+
+  .card.text-only .card-title {
+    font-size: 1.45rem;
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--taupe);
+  }
+
+  .empty-state svg { margin-bottom: 16px; opacity: 0.4; }
+
+  .empty-state h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 6px;
+    color: var(--stone);
+  }
+
+  .empty-state p { font-size: 0.82rem; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(44, 36, 32, 0.45);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .modal-overlay.hidden { display: none; }
+
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal {
+    background: var(--cream);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 520px;
+    box-shadow: 0 24px 64px rgba(44,36,32,0.22);
+    overflow: hidden;
+    animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .modal-header {
+    padding: 28px 28px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .modal-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .modal-close {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: var(--sand);
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--stone);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .modal-close:hover { background: var(--taupe); color: var(--cream); }
+
+  .modal-body {
+    padding: 20px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+
+  input[type="text"],
+  textarea,
+  select,
+  input[type="url"] {
+    border: 1.5px solid var(--sand);
+    border-radius: 12px;
+    padding: 11px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--ink);
+    background: var(--warm-white);
+    outline: none;
+    transition: border-color 0.18s, box-shadow 0.18s;
+    resize: none;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px var(--gold-light);
+  }
+
+  textarea { min-height: 80px; }
+
+  select option { background: var(--warm-white); }
+
+  /* image preview */
+  .image-preview {
+    width: 100%;
+    height: 160px;
+    border-radius: 12px;
+    object-fit: cover;
+    display: none;
+    margin-top: 6px;
+  }
+
+  .image-upload-area {
+    border: 2px dashed var(--sand);
+    border-radius: 12px;
+    padding: 28px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.18s, background 0.18s;
+    color: var(--taupe);
+    font-size: 0.82rem;
+  }
+
+  .image-upload-area:hover {
+    border-color: var(--gold);
+    background: var(--warm-white);
+    color: var(--stone);
+  }
+
+  .image-upload-area input { display: none; }
+
+  .image-upload-area .upload-icon {
+    font-size: 1.6rem;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .modal-footer {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  /* ── PROGRESS DOTS ── */
+  .stats-bar {
+    padding: 0 48px 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    color: var(--stone);
+  }
+
+  .stat-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--taupe);
+  }
+
+  .stat strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>My <span>Vision</span> Board</h1>
+    <p>Dreams · Intentions · Goals · 2025</p>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-secondary" onclick="clearAll()">✦ Clear All</button>
+    <button class="btn btn-primary" onclick="openModal()">＋ Add Pin</button>
+  </div>
+</header>
+
+<div class="stats-bar" id="statsBar"></div>
+
+<div class="filters" id="filtersWrap">
+  <button class="filter-tag active" data-cat="all" onclick="filterCards(this)">All</button>
+  <button class="filter-tag" data-cat="health" onclick="filterCards(this)">Health</button>
+  <button class="filter-tag" data-cat="career" onclick="filterCards(this)">Career</button>
+  <button class="filter-tag" data-cat="travel" onclick="filterCards(this)">Travel</button>
+  <button class="filter-tag" data-cat="personal" onclick="filterCards(this)">Personal</button>
+  <button class="filter-tag" data-cat="finance" onclick="filterCards(this)">Finance</button>
+  <button class="filter-tag" data-cat="creative" onclick="filterCards(this)">Creative</button>
+</div>
+
+<div class="board" id="board"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay hidden" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle">Pin a new intention</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" id="pinTitle" placeholder="e.g. Run a half-marathon" />
+      </div>
+      <div class="form-group">
+        <label>Goal / Intention</label>
+        <textarea id="pinGoal" placeholder="Describe your vision, your why, or steps to get there…"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="pinCategory">
+          <option value="health">🌿 Health & Wellness</option>
+          <option value="career">💼 Career & Growth</option>
+          <option value="travel">✈️ Travel & Adventure</option>
+          <option value="personal">🌸 Personal Development</option>
+          <option value="finance">💛 Finance & Abundance</option>
+          <option value="creative">🎨 Creative & Passion</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Image (optional)</label>
+        <div class="image-upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+          <span class="upload-icon">🖼</span>
+          Click to upload an image from your device
+          <input type="file" id="fileInput" accept="image/*" onchange="handleFileUpload(event)">
+        </div>
+        <img id="imagePreview" class="image-preview" alt="preview" />
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="savePin()">Pin it ✦</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let pins = [];
+  let editingId = null;
+  let currentFilter = 'all';
+  let uploadedImageData = null;
+
+  const SAMPLE_PINS = [
+    {
+      id: 1,
+      title: "Run a Half Marathon",
+      goal: "Train consistently through the year — 3 runs a week. Sign up for a local race by October.",
+      category: "health",
+      image: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=600&q=80",
+      date: "Jan 2025"
+    },
+    {
+      id: 2,
+      title: "Explore Southeast Asia",
+      goal: "Take that long-dreamed trip through Vietnam and Thailand. Two weeks, minimal plans, maximum wonder.",
+      category: "travel",
+      image: "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600&q=80",
+      date: "Jan 2025"
+    },
+    {
+      id: 3,
+      title: "Build a Dream Side Project",
+      goal: "Launch an indie product by June. One that solves a real problem and brings in income.",
+      category: "career",
+      image: null,
+      date: "Jan 2025"
+    },
+    {
+      id: 4,
+      title: "Learn Watercolor Painting",
+      goal: "Attend a weekend class, then practice every Sunday morning. Fill a sketchbook by December.",
+      category: "creative",
+      image: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&q=80",
+      date: "Jan 2025"
+    },
+    {
+      id: 5,
+      title: "Save ₹5 Lakh This Year",
+      goal: "Automate savings on the 1st. Cut subscriptions. Invest monthly in index funds.",
+      category: "finance",
+      image: null,
+      date: "Jan 2025"
+    },
+    {
+      id: 6,
+      title: "Read 24 Books",
+      goal: "Two books a month. Mix fiction, non-fiction, and poetry. Keep a reading journal.",
+      category: "personal",
+      image: "https://images.unsplash.com/photo-1512820790803-83ca734da794?w=600&q=80",
+      date: "Jan 2025"
+    }
+  ];
+
+  function init() {
+    const saved = localStorage.getItem('visionBoardPins');
+    if (saved) {
+      pins = JSON.parse(saved);
+    } else {
+      pins = SAMPLE_PINS;
+      savePins();
+    }
+    renderBoard();
+  }
+
+  function savePins() {
+    localStorage.setItem('visionBoardPins', JSON.stringify(pins));
+  }
+
+  function renderBoard() {
+    const board = document.getElementById('board');
+    const filtered = currentFilter === 'all' ? pins : pins.filter(p => p.category === currentFilter);
+
+    if (filtered.length === 0) {
+      board.innerHTML = `
+        <div class="empty-state" style="column-span:all;">
+          <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+            <path d="M12 4v4m0 0a4 4 0 100 8 4 4 0 000-8zm-8 4h4m8 0h4M5.636 5.636l2.828 2.828m7.072 0l2.828-2.828M5.636 18.364l2.828-2.828m7.072 0l2.828 2.828"/>
+          </svg>
+          <h3>Your board is empty</h3>
+          <p>Start pinning your dreams and intentions for the year.</p>
+        </div>`;
+    } else {
+      board.innerHTML = filtered.map((pin, i) => cardHTML(pin, i * 60)).join('');
+    }
+
+    updateStats();
+  }
+
+  function cardHTML(pin, delay) {
+    const catClass = 'cat-' + pin.category;
+    const catLabel = { health:'Health', career:'Career', travel:'Travel', personal:'Personal', finance:'Finance', creative:'Creative' }[pin.category];
+    const imageHTML = pin.image
+      ? `<div class="card-image-wrap" style="height:${imageHeight(pin)}px">
+           <img src="${pin.image}" style="height:100%" loading="lazy" onerror="this.parentElement.style.display='none'">
+           <span class="card-category-badge ${catClass}">${catLabel}</span>
+         </div>`
+      : `<div style="padding:18px 20px 0 20px"><span class="card-category-badge ${catClass}" style="position:relative;top:auto;left:auto;display:inline-block">${catLabel}</span></div>`;
+
+    return `<div class="card ${pin.image ? '' : 'text-only'}" style="animation-delay:${delay}ms" data-id="${pin.id}">
+      ${imageHTML}
+      <div class="card-body">
+        <div class="card-title">${escHtml(pin.title)}</div>
+        <div class="card-goal">${escHtml(pin.goal)}</div>
+        <div class="card-footer">
+          <span class="card-date">${pin.date}</span>
+          <div class="card-actions">
+            <button class="icon-btn" onclick="editPin(${pin.id}, event)" title="Edit">✏</button>
+            <button class="icon-btn del" onclick="deletePin(${pin.id}, event)" title="Delete">✕</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  function imageHeight(pin) {
+    const heights = { health:200, career:180, travel:220, personal:190, finance:160, creative:210 };
+    return heights[pin.category] || 190;
+  }
+
+  function updateStats() {
+    const bar = document.getElementById('statsBar');
+    const cats = ['health','career','travel','personal','finance','creative'];
+    const labels = { health:'Health', career:'Career', travel:'Travel', personal:'Personal', finance:'Finance', creative:'Creative' };
+    const dotColors = { health:'#8fad84', career:'#88a0b8', travel:'#c9a96e', personal:'#c89080', finance:'#aaaa78', creative:'#a87cb0' };
+
+    const counts = {};
+    cats.forEach(c => counts[c] = pins.filter(p => p.category === c).length);
+
+    bar.innerHTML = `<div class="stat"><span class="stat-dot" style="background:var(--ink)"></span><strong>${pins.length}</strong>&nbsp;pins total</div>` +
+      cats.filter(c => counts[c] > 0).map(c =>
+        `<div class="stat"><span class="stat-dot" style="background:${dotColors[c]}"></span><strong>${counts[c]}</strong>&nbsp;${labels[c]}</div>`
+      ).join('');
+  }
+
+  function filterCards(btn) {
+    document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    currentFilter = btn.dataset.cat;
+    renderBoard();
+  }
+
+  function openModal(pin) {
+    editingId = pin ? pin.id : null;
+    document.getElementById('modalTitle').textContent = pin ? 'Edit your intention' : 'Pin a new intention';
+    document.getElementById('pinTitle').value = pin ? pin.title : '';
+    document.getElementById('pinGoal').value = pin ? pin.goal : '';
+    document.getElementById('pinCategory').value = pin ? pin.category : 'health';
+    uploadedImageData = pin ? (pin.image || null) : null;
+    const preview = document.getElementById('imagePreview');
+    if (pin && pin.image) {
+      preview.src = pin.image;
+      preview.style.display = 'block';
+      document.getElementById('uploadArea').style.display = 'none';
+    } else {
+      preview.style.display = 'none';
+      document.getElementById('uploadArea').style.display = 'block';
+    }
+    document.getElementById('modalOverlay').classList.remove('hidden');
+    setTimeout(() => document.getElementById('pinTitle').focus(), 50);
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.add('hidden');
+    editingId = null;
+    uploadedImageData = null;
+    document.getElementById('fileInput').value = '';
+    document.getElementById('imagePreview').style.display = 'none';
+    document.getElementById('uploadArea').style.display = 'block';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = e => {
+      uploadedImageData = e.target.result;
+      const preview = document.getElementById('imagePreview');
+      preview.src = uploadedImageData;
+      preview.style.display = 'block';
+      document.getElementById('uploadArea').style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function savePin() {
+    const title = document.getElementById('pinTitle').value.trim();
+    const goal = document.getElementById('pinGoal').value.trim();
+    const category = document.getElementById('pinCategory').value;
+
+    if (!title) {
+      document.getElementById('pinTitle').focus();
+      document.getElementById('pinTitle').style.borderColor = '#d4756a';
+      setTimeout(() => document.getElementById('pinTitle').style.borderColor = '', 1200);
+      return;
+    }
+
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', { month:'short', year:'numeric' });
+
+    if (editingId) {
+      const idx = pins.findIndex(p => p.id === editingId);
+      pins[idx] = { ...pins[idx], title, goal, category, image: uploadedImageData || pins[idx].image };
+    } else {
+      pins.unshift({
+        id: Date.now(),
+        title, goal, category,
+        image: uploadedImageData || null,
+        date: dateStr
+      });
+    }
+
+    savePins();
+    closeModal();
+    renderBoard();
+  }
+
+  function editPin(id, e) {
+    e.stopPropagation();
+    const pin = pins.find(p => p.id === id);
+    if (pin) openModal(pin);
+  }
+
+  function deletePin(id, e) {
+    e.stopPropagation();
+    pins = pins.filter(p => p.id !== id);
+    savePins();
+    renderBoard();
+  }
+
+  function clearAll() {
+    if (pins.length === 0) return;
+    if (confirm('Clear all pins from your vision board?')) {
+      pins = [];
+      savePins();
+      renderBoard();
+    }
+  }
+
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  init();
+</script>
+</body>
+</html>

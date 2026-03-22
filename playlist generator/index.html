@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mood Playlist Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; background: #f9f9f9; color: #222; }
+    .wrap { max-width: 520px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 22px; font-weight: 500; margin-bottom: 1.5rem; }
+    .section-label { font-size: 12px; color: #999; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px; }
+    .moods { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 1.5rem; }
+    .mood-btn { padding: 8px 16px; font-size: 13px; border: 1px solid #ddd; border-radius: 999px; background: #fff; color: #666; cursor: pointer; transition: all .15s; }
+    .mood-btn:hover { background: #f0f0f0; color: #222; }
+    .mood-btn.selected { border-color: #888; color: #222; font-weight: 500; background: #fff; }
+    .gen-btn { width: 100%; padding: 10px; font-size: 14px; font-weight: 500; border: 1px solid #ddd; border-radius: 8px; background: #fff; color: #222; cursor: pointer; margin-bottom: 1.5rem; }
+    .gen-btn:hover { background: #f0f0f0; }
+    .gen-btn:active { transform: scale(0.98); }
+    .playlist-card { background: #fff; border: 1px solid #eee; border-radius: 12px; overflow: hidden; }
+    .playlist-header { padding: 16px 16px 12px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; }
+    .playlist-cover { width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+    .playlist-title { font-size: 15px; font-weight: 500; }
+    .playlist-sub { font-size: 12px; color: #999; margin-top: 2px; }
+    .track { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid #f0f0f0; }
+    .track:last-child { border-bottom: none; }
+    .track-num { font-size: 12px; color: #bbb; width: 16px; text-align: center; flex-shrink: 0; }
+    .track-info { flex: 1; min-width: 0; }
+    .track-name { font-size: 14px; color: #222; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .track-artist { font-size: 12px; color: #888; margin-top: 1px; }
+    .track-dur { font-size: 12px; color: #bbb; flex-shrink: 0; }
+    .empty { padding: 2rem; text-align: center; font-size: 14px; color: #bbb; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Mood Playlist Generator</h1>
+    <p class="section-label">Pick a mood</p>
+    <div class="moods">
+      <button class="mood-btn" data-mood="happy">Happy</button>
+      <button class="mood-btn" data-mood="chill">Chill</button>
+      <button class="mood-btn" data-mood="sad">Sad</button>
+      <button class="mood-btn" data-mood="energetic">Energetic</button>
+      <button class="mood-btn" data-mood="romantic">Romantic</button>
+      <button class="mood-btn" data-mood="focused">Focused</button>
+      <button class="mood-btn" data-mood="angry">Angry</button>
+      <button class="mood-btn" data-mood="nostalgic">Nostalgic</button>
+    </div>
+    <button class="gen-btn" id="gen-btn">Generate playlist</button>
+    <div id="playlist-area">
+      <div class="empty">Select a mood and generate your playlist</div>
+    </div>
+  </div>
+
+  <script>
+    const playlists = {
+      happy: {
+        cover: "🌞", color: "#FAEEDA",
+        tracks: [
+          { name: "Happy", artist: "Pharrell Williams", dur: "3:53" },
+          { name: "Can't Stop the Feeling", artist: "Justin Timberlake", dur: "3:56" },
+          { name: "Good as Hell", artist: "Lizzo", dur: "2:39" },
+          { name: "Uptown Funk", artist: "Mark Ronson ft. Bruno Mars", dur: "4:30" },
+          { name: "Shake It Off", artist: "Taylor Swift", dur: "3:39" },
+          { name: "Walking on Sunshine", artist: "Katrina & The Waves", dur: "3:58" },
+          { name: "Best Day of My Life", artist: "American Authors", dur: "3:14" }
+        ]
+      },
+      chill: {
+        cover: "🌊", color: "#E6F1FB",
+        tracks: [
+          { name: "Sunset Lover", artist: "Petit Biscuit", dur: "3:42" },
+          { name: "Breathe", artist: "Télépopmusik", dur: "4:01" },
+          { name: "Cornerstone", artist: "Arctic Monkeys", dur: "3:34" },
+          { name: "Electric Feel", artist: "MGMT", dur: "3:49" },
+          { name: "Intro", artist: "The xx", dur: "2:07" },
+          { name: "Skinny Love", artist: "Bon Iver", dur: "3:58" },
+          { name: "Re: Stacks", artist: "Bon Iver", dur: "4:24" }
+        ]
+      },
+      sad: {
+        cover: "🌧", color: "#E1F5EE",
+        tracks: [
+          { name: "The Night Will Always Win", artist: "Manchester Orchestra", dur: "4:12" },
+          { name: "Skinny Love", artist: "Bon Iver", dur: "3:58" },
+          { name: "Fix You", artist: "Coldplay", dur: "4:55" },
+          { name: "Liability", artist: "Lorde", dur: "3:00" },
+          { name: "Someone Like You", artist: "Adele", dur: "4:45" },
+          { name: "Holocene", artist: "Bon Iver", dur: "5:37" },
+          { name: "The Night We Met", artist: "Lord Huron", dur: "3:28" }
+        ]
+      },
+      energetic: {
+        cover: "⚡", color: "#FCEBEB",
+        tracks: [
+          { name: "Blinding Lights", artist: "The Weeknd", dur: "3:20" },
+          { name: "POWER", artist: "Kanye West", dur: "4:52" },
+          { name: "Lose Yourself", artist: "Eminem", dur: "5:26" },
+          { name: "Eye of the Tiger", artist: "Survivor", dur: "4:05" },
+          { name: "Thunder", artist: "Imagine Dragons", dur: "3:07" },
+          { name: "Till I Collapse", artist: "Eminem", dur: "4:57" },
+          { name: "Stronger", artist: "Kanye West", dur: "5:11" }
+        ]
+      },
+      romantic: {
+        cover: "🌹", color: "#FBEAF0",
+        tracks: [
+          { name: "Perfect", artist: "Ed Sheeran", dur: "4:23" },
+          { name: "All of Me", artist: "John Legend", dur: "4:29" },
+          { name: "Make You Feel My Love", artist: "Adele", dur: "3:32" },
+          { name: "At Last", artist: "Etta James", dur: "2:58" },
+          { name: "Can't Help Falling in Love", artist: "Elvis Presley", dur: "3:00" },
+          { name: "Thinking Out Loud", artist: "Ed Sheeran", dur: "4:41" },
+          { name: "La Vie en Rose", artist: "Édith Piaf", dur: "3:07" }
+        ]
+      },
+      focused: {
+        cover: "🎯", color: "#EEEDFE",
+        tracks: [
+          { name: "Comptine d'un autre été", artist: "Yann Tiersen", dur: "2:23" },
+          { name: "Experience", artist: "Ludovico Einaudi", dur: "5:15" },
+          { name: "Divenire", artist: "Ludovico Einaudi", dur: "6:40" },
+          { name: "Nuvole Bianche", artist: "Ludovico Einaudi", dur: "5:56" },
+          { name: "Time", artist: "Hans Zimmer", dur: "4:35" },
+          { name: "An Ending (Ascent)", artist: "Brian Eno", dur: "4:13" },
+          { name: "Svefn-g-englar", artist: "Sigur Rós", dur: "10:03" }
+        ]
+      },
+      angry: {
+        cover: "🔥", color: "#FAECE7",
+        tracks: [
+          { name: "Break Stuff", artist: "Limp Bizkit", dur: "2:46" },
+          { name: "Bodies", artist: "Drowning Pool", dur: "3:20" },
+          { name: "Given Up", artist: "Linkin Park", dur: "3:09" },
+          { name: "Killing in the Name", artist: "Rage Against the Machine", dur: "5:13" },
+          { name: "Du Hast", artist: "Rammstein", dur: "3:55" },
+          { name: "Down with the Sickness", artist: "Disturbed", dur: "4:37" },
+          { name: "My Way", artist: "Limp Bizkit", dur: "4:37" }
+        ]
+      },
+      nostalgic: {
+        cover: "📼", color: "#F1EFE8",
+        tracks: [
+          { name: "Summer of '69", artist: "Bryan Adams", dur: "3:35" },
+          { name: "Don't You (Forget About Me)", artist: "Simple Minds", dur: "4:21" },
+          { name: "Africa", artist: "Toto", dur: "4:55" },
+          { name: "Take On Me", artist: "a-ha", dur: "3:46" },
+          { name: "Come On Eileen", artist: "Dexys Midnight Runners", dur: "4:10" },
+          { name: "Sweet Child O' Mine", artist: "Guns N' Roses", dur: "5:56" },
+          { name: "Livin' on a Prayer", artist: "Bon Jovi", dur: "4:09" }
+        ]
+      }
+    };
+
+    let selected = null;
+
+    document.querySelectorAll(".mood-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".mood-btn").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        selected = btn.dataset.mood;
+      });
+    });
+
+    document.getElementById("gen-btn").addEventListener("click", () => {
+      if (!selected) {
+        document.getElementById("playlist-area").innerHTML = '<div class="empty">Please select a mood first!</div>';
+        return;
+      }
+      const p = playlists[selected];
+      const moodLabel = selected.charAt(0).toUpperCase() + selected.slice(1);
+      let tracksHTML = p.tracks.map((t, i) => `
+        <div class="track">
+          <span class="track-num">${i + 1}</span>
+          <div class="track-info">
+            <div class="track-name">${t.name}</div>
+            <div class="track-artist">${t.artist}</div>
+          </div>
+          <span class="track-dur">${t.dur}</span>
+        </div>
+      `).join("");
+
+      document.getElementById("playlist-area").innerHTML = `
+        <div class="playlist-card">
+          <div class="playlist-header">
+            <div class="playlist-cover" style="background:${p.color}">${p.cover}</div>
+            <div>
+              <div class="playlist-title">${moodLabel} vibes</div>
+              <div class="playlist-sub">${p.tracks.length} songs &middot; curated for you</div>
+            </div>
+          </div>
+          ${tracksHTML}
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>

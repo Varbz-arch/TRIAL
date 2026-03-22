@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do List</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: sans-serif; background: #f5f5f5; color: #222; }
+    #app { max-width: 480px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 22px; font-weight: 500; margin-bottom: 1.5rem; }
+    #input-row { display: flex; gap: 8px; margin-bottom: 1.5rem; }
+    #task-input { flex: 1; padding: 8px 12px; font-size: 15px; border: 1px solid #ccc; border-radius: 8px; outline: none; }
+    #task-input:focus { border-color: #1D9E75; }
+    #add-btn { padding: 8px 16px; font-size: 14px; font-weight: 500; border: 1px solid #ccc; border-radius: 8px; background: #fff; cursor: pointer; }
+    #add-btn:hover { background: #f0f0f0; }
+    #filters { display: flex; gap: 6px; margin-bottom: 1rem; }
+    .filter-btn { padding: 4px 12px; font-size: 13px; border: 1px solid #ddd; border-radius: 999px; background: transparent; color: #666; cursor: pointer; }
+    .filter-btn.active { border-color: #888; color: #222; background: #ececec; }
+    #todo-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .todo-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; }
+    .todo-item input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; accent-color: #1D9E75; flex-shrink: 0; }
+    .todo-item span { flex: 1; font-size: 15px; }
+    .todo-item span.done { text-decoration: line-through; color: #aaa; }
+    .del-btn { background: none; border: none; cursor: pointer; font-size: 16px; color: #bbb; padding: 0 4px; }
+    .del-btn:hover { color: #e24b4a; }
+    #empty { font-size: 14px; color: #aaa; text-align: center; padding: 2rem 0; }
+    #footer { margin-top: 1rem; font-size: 13px; color: #aaa; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>My To-Do List</h1>
+    <div id="input-row">
+      <input id="task-input" type="text" placeholder="Add a new task..." />
+      <button id="add-btn">+ Add</button>
+    </div>
+    <div id="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="active">Active</button>
+      <button class="filter-btn" data-filter="done">Done</button>
+    </div>
+    <ul id="todo-list"></ul>
+    <p id="empty" style="display:none">No tasks here!</p>
+    <p id="footer"></p>
+  </div>
+
+  <script>
+    let tasks = [
+      { id: 1, text: "Buy groceries", done: false },
+      { id: 2, text: "Read a book", done: true },
+      { id: 3, text: "Go for a walk", done: false }
+    ];
+    let filter = "all";
+    let nextId = 4;
+
+    function render() {
+      const list = document.getElementById("todo-list");
+      const empty = document.getElementById("empty");
+      const footer = document.getElementById("footer");
+      const filtered = tasks.filter(t =>
+        filter === "all" ? true : filter === "done" ? t.done : !t.done
+      );
+      list.innerHTML = "";
+      empty.style.display = filtered.length === 0 ? "block" : "none";
+      filtered.forEach(t => {
+        const li = document.createElement("li");
+        li.className = "todo-item";
+        li.innerHTML = `
+          <input type="checkbox" ${t.done ? "checked" : ""} data-id="${t.id}" />
+          <span class="${t.done ? "done" : ""}">${t.text}</span>
+          <button class="del-btn" data-id="${t.id}">&#x2715;</button>
+        `;
+        list.appendChild(li);
+      });
+      const remaining = tasks.filter(t => !t.done).length;
+      footer.textContent = remaining + " task" + (remaining !== 1 ? "s" : "") + " remaining";
+    }
+
+    document.getElementById("add-btn").addEventListener("click", addTask);
+    document.getElementById("task-input").addEventListener("keydown", e => {
+      if (e.key === "Enter") addTask();
+    });
+
+    function addTask() {
+      const input = document.getElementById("task-input");
+      const text = input.value.trim();
+      if (!text) return;
+      tasks.push({ id: nextId++, text, done: false });
+      input.value = "";
+      render();
+    }
+
+    document.getElementById("todo-list").addEventListener("change", e => {
+      if (e.target.type === "checkbox") {
+        const id = parseInt(e.target.dataset.id);
+        tasks = tasks.map(t => t.id === id ? { ...t, done: e.target.checked } : t);
+        render();
+      }
+    });
+
+    document.getElementById("todo-list").addEventListener("click", e => {
+      if (e.target.classList.contains("del-btn")) {
+        const id = parseInt(e.target.dataset.id);
+        tasks = tasks.filter(t => t.id !== id);
+        render();
+      }
+    });
+
+    document.getElementById("filters").addEventListener("click", e => {
+      if (e.target.classList.contains("filter-btn")) {
+        filter = e.target.dataset.filter;
+        document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+        e.target.classList.add("active");
+        render();
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>
