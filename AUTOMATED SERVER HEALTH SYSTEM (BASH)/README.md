@@ -91,6 +91,6 @@ Most servers fail silently until it's too late. This project simulates a basic v
 - [ ] Support monitoring multiple remote servers via SSH
 - [ ] Email alerts as a fallback to Telegram
 
-## 📄 License
+##  License
 
 MIT License — free to use and modify.
