@@ -73,19 +73,19 @@ log "CPU: ${CPU}% | RAM: ${RAM}% | DISK: ${DISK}% | Failed SSH logins: ${FAILED_
 ALERT_MSG=""
 
 if [ "$CPU" -ge "$CPU_THRESHOLD" ]; then
-    ALERT_MSG+="⚠️ High CPU usage: ${CPU}%\n"
+    ALERT_MSG+=" High CPU usage: ${CPU}%\n"
 fi
 
 if [ "$RAM" -ge "$RAM_THRESHOLD" ]; then
-    ALERT_MSG+="⚠️ High RAM usage: ${RAM}%\n"
+    ALERT_MSG+=" High RAM usage: ${RAM}%\n"
 fi
 
 if [ "$DISK" -ge "$DISK_THRESHOLD" ]; then
-    ALERT_MSG+="⚠️ High Disk usage: ${DISK}%\n"
+    ALERT_MSG+=" High Disk usage: ${DISK}%\n"
 fi
 
 if [ "$FAILED_LOGINS" -ge "$LOGIN_FAIL_THRESHOLD" ]; then
-    ALERT_MSG+="🚨 ${FAILED_LOGINS} failed SSH login attempts detected!\n"
+    ALERT_MSG+=" ${FAILED_LOGINS} failed SSH login attempts detected!\n"
 fi
 
 if [ -n "$ALERT_MSG" ]; then
