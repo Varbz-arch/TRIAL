@@ -59,7 +59,7 @@ Add this line:
 */5 * * * * /full/path/to/monitor.sh
 ```
 
-## ⚙️ Configuration
+## Configuration
 
 Thresholds can be adjusted at the top of `monitor.sh`:
 
