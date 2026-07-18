@@ -70,7 +70,7 @@ DISK_THRESHOLD=80
 LOGIN_FAIL_THRESHOLD=5
 ```
 
-## 📋 Sample Log Output
+##  Sample Log Output
 
 ```
 2026-07-18 10:05:01 | CPU: 42% | RAM: 55% | DISK: 61% | Failed SSH logins: 2
