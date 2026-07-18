@@ -1,4 +1,4 @@
-// STUDENT MANAGEMENT SYSTEM (Updated Version)
+// STUDENT MANAGEMENT SYSTEM 
 
 #include <stdio.h>
 #include <stdlib.h>
