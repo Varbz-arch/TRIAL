@@ -26,7 +26,7 @@ A lightweight Bash script that monitors a Linux server's health — CPU, RAM, di
 └── README.md
 ```
 
-## 🚀 Setup & Usage
+##  Setup & Usage
 
 ### 1. Clone and give execute permission
 ```bash
